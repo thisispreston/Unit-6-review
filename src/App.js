@@ -12,12 +12,12 @@ function App(props) {
       props.location.pathname === "/register" ? (
         <>
           <AuthHeader />
-          {routes}
+          {/* something goes here */}
         </>
       ) : (
         <>
           <Header />
-          {routes}
+          {/* something goes here */}
         </>
       )}
     </div>
