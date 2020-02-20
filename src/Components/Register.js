@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios'
 
 class Register extends Component {
   constructor() {
@@ -10,12 +11,18 @@ class Register extends Component {
     };
   }
 
-  handleInput = event => {
-
+  handleInput = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    })
   };
 
   handleRegister = () => {
-   
+    let { email, password } = this.state
+    axios.post('/api/register', {email, password}).then( res => {
+      //TODO: get user off of redux
+      this.props.history.push('/dash')
+    }).catch( err => console.log(err))
   };
 
   render() {
@@ -28,18 +35,14 @@ class Register extends Component {
                 maxLength="100"
                 placeholder="Enter Email"
                 name="email"
-                onChange={
-                  //something goes here
-                }
+                onChange={ e => this.handleInput(e)}
               />
               <input
                 type="password"
                 maxLength="20"
                 placeholder="Enter Password"
                 name="password"
-                onChange={
-                  //something goes here
-                }
+                onChange={ e => this.handleInput(e)}
               />
             </div>
             <button

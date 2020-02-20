@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios'
+import { connect } from 'react-redux'
+import { getUser } from '../redux/reducer'
 
 class Landing extends Component {
   constructor() {
@@ -11,11 +14,21 @@ class Landing extends Component {
     //this.handleLogin = this.handleLogin.bind(this)
   }
 
-  handleInput = () => {
+  handleInput = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    })
   };
 
   handleLogin = () => {
-   
+    let { email, password } = this.state
+    axios
+      .post('/api/login', {email, password})
+      .then( res => {
+        this.props.getUser(res.data)
+        this.props.history.push('/dash')
+      })
+      .catch( err => console.log(err))
   };
 
   render() {
@@ -28,24 +41,18 @@ class Landing extends Component {
                 maxLength="100"
                 placeholder="Enter Email"
                 name="email"
-                onChange={
-                  //something goes here
-                }
+                onChange={ e => this.handleInput(e)}
               />
               <input
                 type="password"
                 maxLength="20"
                 placeholder="Enter Password"
                 name="password"
-                onChange={
-                  //something goes here
-                }
+                onChange={ e => this.handleInput(e)}
               />
             </div>
             <button
-              onClick={
-            //something goes here
-          }
+              onClick={() => this.handleLogin()}
               className="input-container-button"
             >
               Log in
@@ -63,4 +70,5 @@ class Landing extends Component {
   }
 }
 
-export default Landing;
+// first parameter of connect is redux state, second is redux actions/functions
+export default connect(null, {getUser})(Landing);
