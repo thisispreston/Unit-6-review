@@ -1,8 +1,6 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
 import Header from "./Components/Header";
 import AuthHeader from "./Components/AuthHeader";
-import routes from "./routes";
 import "./App.css";
 
 function App(props) {
@@ -24,4 +22,4 @@ function App(props) {
   );
 }
 
-export default withRouter(App);
+export default App;
