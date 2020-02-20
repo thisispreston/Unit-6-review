@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios'
+import { connect } from 'react-redux'
+import { getUser } from '../redux/reducer'
 
 class Register extends Component {
   constructor() {
@@ -20,7 +22,7 @@ class Register extends Component {
   handleRegister = () => {
     let { email, password } = this.state
     axios.post('/api/register', {email, password}).then( res => {
-      //TODO: get user off of redux
+      this.props.getUser(res.data)
       this.props.history.push('/dash')
     }).catch( err => console.log(err))
   };
@@ -46,9 +48,7 @@ class Register extends Component {
               />
             </div>
             <button
-              onClick={
-                //something goes here
-              }
+              onClick={this.handleRegister}
               className="input-container-button"
             >
               Register
@@ -66,4 +66,5 @@ class Register extends Component {
   }
 }
 
-export default Register;
+// first parameter of connect is redux state, second is redux actions/functions
+export default connect(null, {getUser})(Register);

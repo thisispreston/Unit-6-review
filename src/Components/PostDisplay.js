@@ -6,24 +6,35 @@ class PostDisplay extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isEditing: false;
+      isEditing: false,
     };
   }
 
   toggleEdit = () => {
-    //something goes here
+    this.setState({
+      isEditing: !this.state.isEditing
+    })
   };
 
   render() {
+    const { post_id, text } = this.props.post
+    const { handleDelete, handleEdit } = this.props
+
     return (
       <>
         {this.state.isEditing ? (
           <Edit
-           //something goes here
+            id={post_id}
+            text={text}
+            toggleEdit={this.toggleEdit}
+            handleEdit={handleEdit}
           />
         ) : (
           <Post
-          //something goes here
+          id={post_id}
+          text={text}
+          toggleEdit={this.toggleEdit}
+          handleDelete={handleDelete}
           />
         )}
       </>

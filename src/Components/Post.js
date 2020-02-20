@@ -4,24 +4,20 @@ const Post = props => {
   return (
     <li className="post-container">
       <div>
-        <p className="post-text">{
-        //something goes here
-      }</p>
+        <p className="post-text">{props.text}</p>
       </div>
       <div className="post-buttons">
         <button
           className="input-container-button-small"
-          onClick={
-           //something goes here
-          }
+          onClick={props.toggleEdit}
         >
           Edit
         </button>
         <button
           className="input-container-button-small"
-          onClick={
-            //something goes here
-          }
+          onClick={() => {
+            props.handleDelete(props.id)
+          }}
         >
           Delete
         </button>
